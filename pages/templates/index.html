@@ -1,0 +1,18 @@
+<h2>Events</h2>
+{% for event in events %}
+    <p>{{ event.title }} {{ event.date }} {{ event.starttime }} - {{ event.endtime }}</p>
+    {% if user == event.created_by %}
+    <form action='delete_event/{{ event.id }}/' method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Delete"/>
+    </form>
+    {% endif %}
+{% endfor %}
+<a href="/add_event">Add Event</a>
+<br>
+<a href="/search">Search Events</a>
+<br>
+<form action='logout/' method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Logout"/>
+</form>

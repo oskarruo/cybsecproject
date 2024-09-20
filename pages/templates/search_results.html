@@ -1,0 +1,5 @@
+<h2>Event search</h2>
+{% for event in events %}
+    <p>{{ event.title }} {{ event.date }} {{ event.starttime }} - {{ event.endtime }}</p>
+{% endfor %}
+<a href="/search">Back</a>

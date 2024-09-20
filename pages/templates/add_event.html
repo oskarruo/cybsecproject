@@ -1,0 +1,9 @@
+<form method="post">
+    {% csrf_token %}
+    <input type="date" id="date" name="date">
+    <input type="number" id="starttime" name="starttime" placeholder="start time">
+    <input type="number" id="endtime" name="endtime" placeholder="end time">
+    <input type="text" id="title" name="title" placeholder="title">
+    <button type="submit">Add Event</button>
+</form>
+<a href="/">Back</a>
