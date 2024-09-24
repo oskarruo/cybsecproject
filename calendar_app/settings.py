@@ -21,10 +21,28 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+# FIX: replace this ---
 SECRET_KEY = 'django-insecure-5_bs-%yse-c-0vl+vlf134(p%)3lts3x-livr*vw0s!6!gs-8v'
+# ---------------------
+
+# with this -----------
+#SECRET_KEY = os.environ.get('SECRET_KEY')
+# ---------------------
+#
+# and set the SECRET_KEY environment variable
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+# FIX: replace this ---
 DEBUG = True
+# ---------------------
+
+# with this -----------
+#DEBUG = False
+# ---------------------
+
 
 ALLOWED_HOSTS = []
 
@@ -106,9 +124,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# FIX: replace this ---
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.MD5PasswordHasher',
 ]
+# ---------------------
+
+# with this -----------
+#PASSWORD_HASHERS = [
+#    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+#    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+#    "django.contrib.auth.hashers.Argon2PasswordHasher",
+#    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+#    "django.contrib.auth.hashers.ScryptPasswordHasher",
+#]
+# ---------------------
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

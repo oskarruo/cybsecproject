@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Event
 from django.db import connection
+from django.http import HttpResponseForbidden
+import re
 
 @login_required
 def home_view(request):
@@ -48,7 +50,18 @@ def add_event_view(request):
 def delete_event_view(request, event_id):
     try:
         event = Event.objects.get(id=event_id)
+        
+        # FIX: replace this ---
         event.delete()
+        # ---------------------
+
+        # with this -----------
+        #if event.created_by == request.user:
+        #    event.delete()
+        #else:
+        #    return HttpResponseForbidden()
+        # ---------------------
+
     except:
         pass
     return redirect('/')
@@ -57,6 +70,8 @@ def delete_event_view(request, event_id):
 def search_view(request):
     if request.method == 'POST':
         query = request.POST.get('search')
+        
+        # FIX: replace this ---
         if query:
             sql = f"SELECT id, title, date, starttime, endtime FROM pages_event WHERE title LIKE '%{query}%'"
             with connection.cursor() as cursor:
@@ -67,6 +82,12 @@ def search_view(request):
                 for r in results]
         else:
             events = []
+        # ---------------------
+
+        # with this -----------
+        #events = Event.objects.filter(title__icontains=query)
+        # ---------------------
+        
         return render(request, 'search_results.html', {"events": events})
 
     return render(request, 'search_events.html')
@@ -75,6 +96,12 @@ def register_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+
+        # FIX: add this ---
+        #if not re.match(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$', password):
+        #    return redirect('/register')
+        # -----------------
+        
         try:
             User.objects.create_user(username=username, password=password)
             return redirect('/login')
